@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusFlow - 14-Day Screen-Free Reset Challenge for Families</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #EFECE6;
+            color: #503724;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .container-narrow {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h1, h2, h3, h4 {
+            color: #503724;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background-color: #8C7467;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(140, 116, 103, 0.3);
+            min-height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary:hover {
+            background-color: #503724;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(140, 116, 103, 0.4);
+        }
+
+        .blur-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #8C7467, #DED8CD);
+            top: -100px;
+            right: -100px;
+        }
+
+        .blob-2 {
+            width: 350px;
+            height: 350px;
+            background: linear-gradient(135deg, #DED8CD, #8C7467);
+            bottom: 100px;
+            left: -100px;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: 6rem 0;
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: left;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #8C7467, #503724);
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(140, 116, 103, 0.3);
+        }
+
+        .hero-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .hero-features li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+        }
+
+        .hero-features li::before {
+            content: "✓";
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background-color: #8C7467;
+            color: white;
+            border-radius: 50%;
+            margin-right: 1rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            border-radius: 2rem;
+            box-shadow: 0 20px 60px rgba(80, 55, 36, 0.2);
+        }
+
+        /* Intro Text Section */
+        .intro-text {
+            padding: 4rem 2rem;
+            background-color: #DED8CD;
+            margin-top: 4rem;
+        }
+
+        .intro-text h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: #503724;
+        }
+
+        .intro-text p {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: #503724;
+            opacity: 0.9;
+            text-align: center;
+        }
+
+        /* Featured Product Section */
+        .featured-product {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .product-image {
+            width: 100%;
+            height: auto;
+            border-radius: 2rem;
+            box-shadow: 0 20px 60px rgba(80, 55, 36, 0.2);
+        }
+
+        .product-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 2rem;
+            box-shadow: 0 10px 40px rgba(80, 55, 36, 0.1);
+        }
+
+        .product-name {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-size: 3rem;
+            color: #8C7467;
+            font-weight: 700;
+            margin: 1.5rem 0;
+        }
+
+        .product-price span {
+            font-size: 1.25rem;
+            color: #503724;
+            opacity: 0.7;
+        }
+
+        .trust-badges {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #503724;
+            opacity: 0.8;
+        }
+
+        .trust-badge-icon {
+            font-size: 1.5rem;
+        }
+
+        .product-benefits {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .product-benefits li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+        }
+
+        .product-benefits li::before {
+            content: "✓";
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background-color: #8C7467;
+            color: white;
+            border-radius: 50%;
+            margin-right: 1rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        /* Benefits Grid */
+        .benefits-section {
+            padding: 6rem 0;
+            background-color: white;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .benefit-card {
+            background: #EFECE6;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(80, 55, 36, 0.05);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(80, 55, 36, 0.15);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card h3 {
+            margin-bottom: 0.75rem;
+        }
+
+        .benefit-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Feature Showcase */
+        .feature-showcase {
+            padding: 6rem 0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .feature-grid.reverse {
+            direction: rtl;
+        }
+
+        .feature-grid.reverse > * {
+            direction: ltr;
+        }
+
+        .feature-image {
+            width: 100%;
+            height: auto;
+            border-radius: 1.5rem;
+            box-shadow: 0 12px 40px rgba(80, 55, 36, 0.15);
+        }
+
+        .feature-content h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-content p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        /* Target Audience Section */
+        .target-audience {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #DED8CD, #EFECE6);
+        }
+
+        .target-list {
+            list-style: none;
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .target-list li {
+            display: flex;
+            align-items: flex-start;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(80, 55, 36, 0.08);
+        }
+
+        .target-list li::before {
+            content: "👨‍👩‍👧‍👦";
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 6rem 0;
+            background-color: white;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: #EFECE6;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 12px rgba(80, 55, 36, 0.08);
+        }
+
+        .stars {
+            color: #8C7467;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #503724;
+        }
+
+        .testimonial-role {
+            font-size: 0.875rem;
+            opacity: 0.7;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 6rem 0;
+            background-color: #EFECE6;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+
+        details {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(80, 55, 36, 0.08);
+            cursor: pointer;
+        }
+
+        summary {
+            font-weight: 600;
+            font-size: 1.125rem;
+            color: #503724;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary::after {
+            content: "+";
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #8C7467;
+        }
+
+        details[open] summary::after {
+            content: "−";
+        }
+
+        details p {
+            margin-top: 1rem;
+            line-height: 1.7;
+            color: #503724;
+            opacity: 0.9;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #8C7467, #503724);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta h2 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .final-cta p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .final-cta .product-price {
+            color: #DED8CD;
+            margin: 2rem 0;
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: #503724;
+        }
+
+        .btn-secondary:hover {
+            background-color: #DED8CD;
+            color: #503724;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.25rem;
+            }
+
+            body {
+                font-size: 0.9375rem;
+            }
+
+            .hero {
+                padding: 3rem 0;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-features li {
+                font-size: 1rem;
+            }
+
+            .intro-text {
+                padding: 3rem 1.5rem;
+                margin-top: 2rem;
+            }
+
+            .intro-text h2 {
+                font-size: 1.5rem;
+            }
+
+            .intro-text p {
+                font-size: 1rem;
+            }
+
+            .featured-product {
+                padding: 4rem 0;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .product-content {
+                padding: 2rem;
+            }
+
+            .product-name {
+                font-size: 1.75rem;
+            }
+
+            .product-price {
+                font-size: 2.25rem;
+            }
+
+            .trust-badges {
+                gap: 1rem;
+            }
+
+            .benefits-section {
+                padding: 4rem 0;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .feature-showcase {
+                padding: 4rem 0;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .feature-grid.reverse {
+                direction: ltr;
+            }
+
+            .target-audience {
+                padding: 4rem 0;
+            }
+
+            .target-list {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials {
+                padding: 4rem 0;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .faq-section {
+                padding: 4rem 0;
+            }
+
+            .final-cta {
+                padding: 4rem 0;
+            }
+
+            .final-cta h2 {
+                font-size: 1.75rem;
+            }
+
+            .final-cta p {
+                font-size: 1rem;
+            }
+
+            .btn-primary {
+                width: 100%;
+                padding: 1rem 2rem;
+            }
+
+            .blob-1, .blob-2 {
+                width: 250px;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="blur-blob blob-1"></div>
+        <div class="blur-blob blob-2"></div>
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <span class="badge">14-Day Family Challenge</span>
+                    <h1>Reclaim Your Family Time from Screen Overload</h1>
+                    <p style="font-size: 1.25rem; margin-bottom: 1.5rem; opacity: 0.9;">Break free from endless screen battles and reconnect with your kids through our proven 14-day reset program designed specifically for overwhelmed parents of 4-10 year olds.</p>
+                    <ul class="hero-features">
+                        <li>Daily guided activities that actually work with busy schedules</li>
+                        <li>End meltdowns with proven behavior-shaping strategies</li>
+                        <li>Build lasting healthy routines without the guilt</li>
+                    </ul>
+                    <a href="https://advaice.io" class="btn-primary">Start Your Family Reset - $11.95</a>
+                </div>
+                <div class="hero-image-wrapper">
+                    <img src="https://nyrslifytgbluamxpqzq.supabase.co/storage/v1/object/public/website-images/focusflow/hero.png" alt="Family enjoying screen-free quality time together" class="hero-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Intro Text Section -->
+    <section class="intro-text">
+        <div class="container-narrow">
+            <h2>You're Not Alone in This Screen Time Struggle</h2>
+            <p>If you feel like screens have hijacked your home and your kids can't function without their devices, you're facing what thousands of modern parents deal with daily. FocusFlow gives you a clear, judgment-free roadmap to transform your family's relationship with technology—starting today.</p>
+        </div>
+    </section>
+
+    <!-- Featured Product Section -->
+    <section class="featured-product">
+        <div class="container">
+            <div class="product-grid">
+                <div>
+                    <img src="https://nyrslifytgbluamxpqzq.supabase.co/storage/v1/object/public/website-images/focusflow/product.png" alt="FocusFlow 14-Day Challenge Book" class="product-image">
+                </div>
+                <div class="product-content">
+                    <h2 class="product-name">FocusFlow Challenge</h2>
+                    <p style="font-size: 1.125rem; margin-bottom: 1rem;">The complete 14-day screen-free reset program for families with kids ages 4-10</p>
+                    <div class="product-price">
+                        $11.95
+                        <span>one-time payment</span>
+                    </div>
+                    <a href="https://advaice.io" class="btn-primary" style="width: 100%; margin-bottom: 1.5rem;">Get Instant Access Now</a>
+                    <div class="trust-badges">
+                        <div class="trust-badge">
+                            <span class="trust-badge-icon">🔒</span>
+                            <span>Secure Checkout</span>
+                        </div>
+                        <div class="trust-badge">
+                            <span class="trust-badge-icon">🛡️</span>
+                            <span>30-Day Guarantee</span>
+                        </div>
+                        <div class="trust-badge">
+                            <span class="trust-badge-icon">⚡</span>
+                            <span>Instant Download</span>
+                        </div>
+                    </div>
+                    <ul class="product-benefits">
+                        <li>14 days of structured, engaging family activities</li>
+                        <li>Conversation starters that actually connect with kids</li>
+                        <li>Proven strategies to eliminate screen time meltdowns</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Grid -->
+    <section class="benefits-section">
+        <div class="container">
+            <h2 class="text-center">Transform Your Family Dynamic in Just 14 Days</h2>
+            <p class="text-center" style="font-size: 1.125rem; max-width: 700px; margin: 1rem auto 0; opacity: 0.85;">FocusFlow provides everything you need to successfully reduce screen time while building stronger family connections.</p>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">📅</div>
+                    <h3>Daily Guided Activities</h3>
+                    <p>Each day includes simple, tested activities that fit into real life—no Pinterest-perfect crafts required. Just genuine connection.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3>Behavior Strategies</h3>
+                    <p>Learn the psychology-backed techniques that help kids transition away from screens without tantrums or power struggles.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">💬</div>
+                    <h3>Conversation Starters</h3>
+                    <p>Break through "I don't know" responses with questions and prompts designed specifically for the 4-10 age range.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🏡</div>
+                    <h3>Sustainable Routines</h3>
+                    <p>Build habits that last beyond the challenge—create a family culture where screens support life instead of replacing it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Showcase 1 -->
+    <section class="feature-showcase">
+        <div class="container">
+            <div class="feature-grid">
+                <div>
+                    <img src="https://nyrslifytgbluamxpqzq.supabase.co/storage/v1/object/public/website-images/focusflow/feature1.png" alt="Daily challenge activities" class="feature-image">
+                </div>
+                <div class="feature-content">
+                    <h2>Structured Daily Guidance That Takes the Guesswork Out</h2>
+                    <p>No more wondering what to do when you take away the iPad. Each of the 14 days includes:</p>
+                    <p><strong>Morning check-ins</strong> to set positive intentions for screen-free time</p>
+                    <p><strong>Afternoon activity suggestions</strong> with multiple options for different energy levels and weather</p>
+                    <p><strong>Evening reflection prompts</strong> to celebrate progress and troubleshoot challenges</p>
+                    <p><strong>Parent coaching tips</strong> to help you stay consistent even when it's hard</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Showcase 2 -->
+    <section class="feature-showcase" style="background-color: white;">
+        <div class="container">
+            <div class="feature-grid reverse">
+                <div>
+                    <img src="https://nyrslifytgbluamxpqzq.supabase.co/storage/v1/object/public/website-images/focusflow/feature2.png" alt="Parent and child connecting" class="feature-image">
+                </div>
+                <div class="feature-content">
+                    <h2>Reconnect with Your Kids on a Deeper Level</h2>
+                    <p>The real magic of FocusFlow isn't just about reducing screen time—it's about rediscovering who your kids are when they're not glued to a device.</p>
+                    <p>You'll learn how to have conversations that go beyond one-word answers, understand what truly interests your child, and create memories that matter more than any YouTube video.</p>
+                    <p>Parents report feeling like they "got their kids back" and actually enjoying family time again instead of just surviving it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience Section -->
+    <section class="target-audience">
+        <div class="container">
+            <h2 class="text-center">Is FocusFlow Right for Your Family?</h2>
+            <p class="text-center" style="font-size: 1.125rem; max-width: 700px; margin: 1rem auto 2rem; opacity: 0.85;">This challenge is specifically designed for:</p>
+            <ul class="target-list">
+                <li>Parents who feel screens have become the default "babysitter" and want to change that pattern</li>
+                <li>Families experiencing daily meltdowns when it's time to turn off devices</li>
+                <li>Parents of kids ages 4-10 who want age-appropriate strategies that actually work</li>
+                <li>Busy families who need simple, realistic activities that don't require extensive prep</li>
+                <li>Parents who feel guilty about screen time but don't know how to reduce it without chaos</li>
+                <li>Families ready to build healthier routines and stronger connections starting today</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="text-center">What Parents Are Saying</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"After just one week, my 6-year-old asked to go outside and play instead of asking for his tablet. I actually teared up. FocusFlow gave me the structure I desperately needed without overwhelming me."</p>
+                    <div class="testimonial-author">Sarah M.</div>
+                    <div class="testimonial-role">Mom of two, ages 6 and 8</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"The meltdowns stopped by day 3! The behavior strategies really work. My kids now have a healthy relationship with screens instead of being controlled by them. Best $12 I've ever spent."</p>
+                    <div class="testimonial-author">James T.</div>
+                    <div class="testimonial-role">Dad of three, ages 4, 7, and 9</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"I was skeptical, but the daily activities were so easy to implement. No complicated crafts—just real connection. My daughter and I actually talk now instead of her being glued to YouTube. Life-changing."</p>
+                    <div class="testimonial-author">Michelle K.</div>
+                    <div class="testimonial-role">Working mom of one, age 5</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="text-center">Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <details>
+                    <summary>What if my kids are extremely resistant to giving up screen time?</summary>
+                    <p>FocusFlow is specifically designed for this exact scenario. The program uses gradual, psychology-backed strategies to reduce resistance. You won't be going cold turkey—instead, you'll learn how to set boundaries that stick while replacing screen time with engaging alternatives your kids will actually enjoy. Most parents report significant reduction in resistance by day 3-4.</p>
+                </details>
+                <details>
+                    <summary>Do I need a lot of time each day to do these activities?</summary>
+                    <p>Not at all! We designed FocusFlow for real, busy families. Most activities take 15-30 minutes and use materials you already have at home. There are also quick 5-minute connection exercises for those especially hectic days. The key is consistency, not perfection.</p>
+                </details>
+                <details>
+                    <summary>Will this work if both parents work full-time?</summary>
+                    <p>Yes! Many of our success stories come from dual-income households. The activities are flexible and can be done in the evenings or on weekends. The program also includes strategies for managing screen time when you can't be physically present, helping you maintain boundaries even during work hours.</p>
+                </details>
+                <details>
+                    <summary>What format is the challenge? How do I access it?</summary>
+                    <p>FocusFlow is a downloadable PDF digital workbook that you can access immediately after purchase. You can read it on any device (phone, tablet, computer) or print it out. It's beautifully designed with daily pages you can work through at your own pace. You'll get instant access via email—no waiting, no shipping.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Ready to Transform Your Family's Screen Time?</h2>
+            <p>Join thousands of parents who've successfully reset their family's relationship with technology</p>
+            <div class="product-price">
+                $11.95
+                <span style="color: #DED8CD;">Complete 14-Day Challenge</span>
+            </div>
+            <a href="https://advaice.io" class="btn-primary btn-secondary">Get Instant Access Now</a>
+            <p style="font-size: 0.95rem; margin-top: 1.5rem; opacity: 0.9;">30-Day Money-Back Guarantee • Instant Digital Download • Works on All Devices</p>
+        </div>
+    </section>
+
+</body>
+</html>
